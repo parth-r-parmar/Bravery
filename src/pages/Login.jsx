@@ -29,9 +29,9 @@ const Login = () => {
         style={{
           height: "90vh",
         }}
-        className='d-flex flex-column align-items-center justify-content-center '
+        className='loginSection'
       >
-        <div className='w-50 p-5 bg-white shadow-lg rounded'>
+        <div className='loginContainer p-5 bg-white shadow-lg rounded'>
           <div className='mb-5'>
             <h1>Login</h1>
           </div>
