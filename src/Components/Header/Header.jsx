@@ -36,21 +36,22 @@ const Header = (props) => {
         id='mainNav'
       >
         <Container>
-          <Link to='/' className='navbar-brand'>
+          <Navbar.Brand as={Link} to='/'>
             Bravery
-          </Link>
+          </Navbar.Brand>
+
           <Navbar.Toggle aria-controls='basic-navbar-nav' className='bg-primary text-white' />
           <Navbar.Collapse id='navbarResponsive'>
             <Nav className='ms-auto'>
               {routes
                 ? routes.map((item) => (
-                    <Link
+                    <Nav.Link
                       key={item.id}
+                      as={Link}
                       to={`${item.isInSamePage ? "#" : "/"}${item.route}`}
-                      className='nav-link'
                     >
                       {item.text}
-                    </Link>
+                    </Nav.Link>
                   ))
                 : ""}
               {props.isUser ? (
