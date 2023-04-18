@@ -25,7 +25,7 @@ const ProtectedRoute = (props) => {
         return props.element;
       });
     } else return props.element;
-  } else return <Navigate to='/login' />;
+  } else return <Navigate to='/auth/login' />;
 };
 
 ProtectedRoute.defaultProps = {

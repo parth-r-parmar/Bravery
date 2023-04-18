@@ -1,4 +1,4 @@
-export const mainPageRoutes = [
+export const landingPageRoutes = [
   {
     id: 1,
     route: "about",
@@ -13,13 +13,13 @@ export const mainPageRoutes = [
   },
   {
     id: 3,
-    route: "login",
+    route: "auth/login",
     text: "Login",
     isInSamePage: false,
   },
   {
     id: 4,
-    route: "register",
+    route: "auth/register",
     text: "Register",
     isInSamePage: false,
   },

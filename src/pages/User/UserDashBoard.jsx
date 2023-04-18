@@ -1,9 +1,7 @@
 import React from "react";
 import {useContext} from "react";
-import Header from "../Components/Header/Header";
-import SiteContainer from "../Components/Header/SiteContainer";
-import {GlobalContext} from "../contexts/userContext";
-import {userDashBoardRoutes} from "../NavRoutes/userDashBoardRoutes";
+import {GlobalContext} from "../../contexts/userContext";
+import {SiteContainer} from "../../Layout/Layout";
 
 const UserDashBoard = () => {
   const {
@@ -11,7 +9,6 @@ const UserDashBoard = () => {
   } = useContext(GlobalContext);
   return (
     <>
-      <Header routes={userDashBoardRoutes} isUser={true} />
       <SiteContainer
         logo={{
           url: user?.profile?.avatar,

@@ -1,13 +1,13 @@
 export const userDashBoardRoutes = [
   {
     id: 1,
-    route: "viewcomplaints",
+    route: "user/view-complaint",
     text: "View Complaints",
     isInSamePage: false,
   },
   {
     id: 2,
-    route: "registercomplaint",
+    route: "user/register-complaint",
     text: "Register Complaint",
     isInSamePage: false,
   },

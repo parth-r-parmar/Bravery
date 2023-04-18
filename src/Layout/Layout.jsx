@@ -1,7 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SiteContainer = (props) => {
+export const LayoutContainer = (props) => {
+  return (
+    <div style={{height: "100vh"}} className={props.className}>
+      {props.children}
+    </div>
+  );
+};
+
+export const SectionWrapper = (props) => {
+  return (
+    <div style={{padding: "4rem 0"}} className={props.className}>
+      {props.children}
+    </div>
+  );
+};
+
+LayoutContainer.propTypes = SectionWrapper.propTypes = {
+  children: PropTypes.element,
+  className: PropTypes.string,
+};
+
+export const SiteContainer = (props) => {
   const {logo, heading = "", children} = props;
   return (
     <div className='site-container'>
@@ -12,8 +33,8 @@ const SiteContainer = (props) => {
               className='masthead-avatar mb-5'
               src={`${
                 logo.isStatic
-                  ? require("../../Assets/imgs/" + logo.url)
-                  : logo.url ?? require("../../Assets/imgs/User.jpg")
+                  ? require("../Assets/imgs/" + logo.url)
+                  : logo.url ?? require("../Assets/imgs/User.jpg")
               }`}
               alt='Logo'
             />
@@ -47,5 +68,3 @@ SiteContainer.propTypes = {
   heading: PropTypes.string,
   children: PropTypes.element,
 };
-
-export default SiteContainer;

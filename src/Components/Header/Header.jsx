@@ -6,6 +6,7 @@ import {deleteUserData} from "../../util/util";
 import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
 import {GlobalContext} from "../../contexts/userContext";
+import {Link} from "react-router-dom";
 
 const Header = (props) => {
   const {routes} = props;
@@ -35,15 +36,21 @@ const Header = (props) => {
         id='mainNav'
       >
         <Container>
-          <Navbar.Brand href='/'>Bravery</Navbar.Brand>
+          <Link to='/' className='navbar-brand'>
+            Bravery
+          </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' className='bg-primary text-white' />
           <Navbar.Collapse id='navbarResponsive'>
             <Nav className='ms-auto'>
               {routes
                 ? routes.map((item) => (
-                    <Nav.Link key={item.id} href={`${item.isInSamePage ? "#" : "/"}${item.route}`}>
+                    <Link
+                      key={item.id}
+                      to={`${item.isInSamePage ? "#" : "/"}${item.route}`}
+                      className='nav-link'
+                    >
                       {item.text}
-                    </Nav.Link>
+                    </Link>
                   ))
                 : ""}
               {props.isUser ? (

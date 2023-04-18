@@ -1,30 +1,25 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {GlobalProvider} from "./contexts/userContext";
-import AuthRoute from "./NavRoutes/AuthRoute";
-import ProtectedRoute from "./NavRoutes/ProtectedRoute";
-import Login from "./pages/Login";
-import MainPage from "./pages/MainPage";
-import Register from "./pages/Register";
-import UserDashBoard from "./pages/UserDashBoard";
+import {UserLayout} from "./Layout/UserLayout";
+import {AuthLayout} from "./Layout/AuthLayout";
+import {PageNotFound} from "./pages/PageNotFound";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <GlobalProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<MainPage />} />
+          <Route index element={<LandingPage />} />
 
           {/* Auth Routes */}
-          <Route exact path='/login' element={<AuthRoute element={<Login />} />}></Route>
-          <Route exact path='/register' element={<Register />}></Route>
+          <Route path='auth/*' element={<AuthLayout />} />
 
-          {/* Private Routes */}
-          <Route
-            exact
-            path='/dashboard'
-            element={<ProtectedRoute element={<UserDashBoard />} />}
-          ></Route>
+          {/* User Routes */}
+          <Route path='user/*' element={<UserLayout />} />
+
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>

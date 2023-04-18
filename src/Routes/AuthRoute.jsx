@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const AuthRoute = (props) => {
   const auth = isAuthenticated();
-  return auth ? <Navigate to='/dashboard' /> : props.element;
+  return auth ? <Navigate to='/user/dashboard' /> : props.element;
 };
 AuthRoute.defaultProps = {
   element: "",
