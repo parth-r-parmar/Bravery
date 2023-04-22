@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       deleteUserData();
-      window.location.assign("/login");
+      window.location.assign("/auth/login");
     }
     // if (error.response.status === 400) {
     //   return Promise.reject(error.response.data.message);
