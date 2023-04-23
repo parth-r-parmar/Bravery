@@ -177,13 +177,15 @@ body {
 }
 
 .loginSection {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  flex-flow: wrap;
   align-items: center;
   justify-content: center;
   .loginContainer {
     width: 50%;
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
       width: 95%;
     }
   }

@@ -11,7 +11,7 @@ export const LayoutContainer = (props) => {
 
 export const SectionWrapper = (props) => {
   return (
-    <div style={{padding: "4rem 0"}} className={props.className}>
+    <div style={{padding: "4rem 0"}} className={`h-100 ${props.className || ""}`}>
       {props.children}
     </div>
   );
