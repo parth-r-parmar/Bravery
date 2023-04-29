@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Tab, Nav, Button, Modal} from "react-bootstrap";
+import {Tab, Nav} from "react-bootstrap";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 
@@ -8,12 +8,6 @@ const CONTACTS_KEY = "contacts";
 
 const Sidebar = () => {
   const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
-  const [modalOpen, setModalOpen] = useState(false);
-  const conversationsOpen = activeKey === CONVERSATIONS_KEY;
-
-  function closeModal() {
-    setModalOpen(false);
-  }
 
   return (
     <div style={{width: "250px"}} className='d-flex flex-column'>
@@ -38,14 +32,6 @@ const Sidebar = () => {
           <span className='text-muted'>{`id`}</span>
         </div>
       </Tab.Container>
-
-      <Modal show={modalOpen} onHide={closeModal}>
-        {/* {conversationsOpen ? (
-          <NewConversationModal closeModal={closeModal} />
-        ) : (
-          <NewContactModal closeModal={closeModal} />
-        )} */}
-      </Modal>
     </div>
   );
 };
