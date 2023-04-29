@@ -1,7 +1,6 @@
 import React, {useContext, useState, useEffect, useCallback} from "react";
 import {useSocket} from "./SocketProvider";
 import PropTypes from "prop-types";
-import {GlobalContext} from "./userContext";
 
 const ConversationsContext = React.createContext();
 
@@ -10,44 +9,17 @@ export function useConversations() {
 }
 
 export function ConversationsProvider({children}) {
-  const {
-    state: {
-      user: {_id = ""},
-    },
-  } = useContext(GlobalContext);
+  const [contacts, setContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
-  // const {contacts} = useContacts();
+  const [selectedConversationIndex, setSelectedConversationIndex] = useState("");
   const socket = useSocket();
 
-  function createConversation(recipients) {
-    setConversations((prevConversations) => {
-      return [...prevConversations, {recipients, messages: []}];
-    });
-  }
-
   const addMessageToConversation = useCallback(
-    ({recipients, text, sender}) => {
+    (data) => {
       setConversations((prevConversations) => {
-        let madeChange = false;
-        const newMessage = {sender, text};
-        const newConversations = prevConversations.map((conversation) => {
-          if (arrayEquality(conversation.recipients, recipients)) {
-            madeChange = true;
-            return {
-              ...conversation,
-              messages: [...conversation.messages, newMessage],
-            };
-          }
-
-          return conversation;
-        });
-
-        if (madeChange) {
-          return newConversations;
-        } else {
-          return [...prevConversations, {recipients, messages: [newMessage]}];
-        }
+        const chat = prevConversations.find((prev) => prev._id === data._id);
+        chat.messages = [...data.messages];
+        return [...prevConversations];
       });
     },
     [setConversations],
@@ -56,74 +28,86 @@ export function ConversationsProvider({children}) {
   useEffect(() => {
     if (socket == null) return;
 
-    socket.on("receive-message", addMessageToConversation);
+    socket.on("receiveMessage", (res) => {
+      addMessageToConversation(res);
+    });
 
-    return () => socket.off("receive-message");
+    socket.on("receiveContactList", (err, res) => {
+      if (err) {
+        alert(JSON.stringify(err));
+      }
+      setContacts(res);
+    });
+
+    socket.on("chatCreated", (res) => {
+      if (res) {
+        setContacts((prev) =>
+          prev.filter((contact) => !res.members.findIndex((item) => item._id === contact._id)),
+        );
+        setConversations((prev) => [...prev, res]);
+      }
+    });
+
+    socket.emit("call", "getContacts", {}, (err, res) => {
+      if (err) {
+        alert(JSON.stringify(err));
+      }
+      setContacts(res.users);
+      setConversations(res.chats);
+    });
+
+    return () => socket.off("receiveMessage");
   }, [socket, addMessageToConversation]);
 
-  function sendMessage(recipients, text) {
+  function sendMessage(text) {
     socket.emit(
       "call",
       "sendMessage",
       {
-        to: recipients,
+        to: selectedConversationIndex,
         message: text,
-        sender: {id: _id, name: "parth"},
       },
       (err, res) => {
         if (err) {
           alert(JSON.stringify(err));
         }
-        console.log(res);
+        addMessageToConversation(res);
       },
     );
-
-    // addMessageToConversation({recipients, text, sender: _id});
   }
 
-  const formattedConversations = conversations.map((conversation, index) => {
-    const recipients = conversation.recipients.map((recipient) => {
-      // const contact = contacts.find((contact) => {
-      //   return contact.id === recipient;
-      // });
-      const name = recipient;
-      return {id: recipient, name};
-    });
-
-    const messages = conversation.messages.map((message) => {
-      // const contact = contacts.find((contact) => {
-      //   return contact.id === message.sender;
-      // });
-      const name = message.sender;
-      const fromMe = _id === message.sender;
-      return {...message, senderName: name, fromMe};
-    });
-
-    const selected = index === selectedConversationIndex;
-    return {...conversation, messages, recipients, selected};
-  });
+  function addToChat(_id) {
+    socket.emit(
+      "call",
+      "createChat",
+      {
+        recipients: [_id],
+      },
+      (err, res) => {
+        if (err) {
+          alert(JSON.stringify(err));
+        }
+        setContacts((prev) =>
+          prev.filter((contact) => res.members.findIndex((item) => item._id === contact._id)),
+        );
+        setConversations((prev) => [...prev, res]);
+      },
+    );
+  }
 
   const value = {
-    conversations: formattedConversations,
-    selectedConversation: formattedConversations[selectedConversationIndex],
+    conversations,
+    contacts,
+    selectedConversation: conversations.find((con) => con._id === selectedConversationIndex),
     sendMessage,
-    selectConversationIndex: setSelectedConversationIndex,
-    createConversation,
+    addToChat,
+    selectedConversationIndex,
+    setSelectedConversationIndex,
   };
 
   return <ConversationsContext.Provider value={value}>{children}</ConversationsContext.Provider>;
 }
 
-function arrayEquality(a, b) {
-  if (a.length !== b.length) return false;
-
-  a.sort();
-  b.sort();
-
-  return a.every((element, index) => {
-    return element === b[index];
-  });
-}
 ConversationsProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };

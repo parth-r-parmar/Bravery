@@ -7,29 +7,26 @@ import {PageNotFound} from "./pages/PageNotFound";
 import LandingPage from "./pages/LandingPage";
 import {SocketProvider} from "./contexts/SocketProvider";
 import {ConversationsProvider} from "./contexts/ConversationsProvider";
-import {ContactsProvider} from "./contexts/ContactsProvider";
 
 function App() {
   return (
     <GlobalProvider>
       <SocketProvider>
-        <ContactsProvider>
-          <ConversationsProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route index element={<LandingPage />} />
+        <ConversationsProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<LandingPage />} />
 
-                {/* Auth Routes */}
-                <Route path='auth/*' element={<AuthLayout />} />
+              {/* Auth Routes */}
+              <Route path='auth/*' element={<AuthLayout />} />
 
-                {/* User Routes */}
-                <Route path='user/*' element={<UserLayout />} />
+              {/* User Routes */}
+              <Route path='user/*' element={<UserLayout />} />
 
-                <Route path='*' element={<PageNotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </ConversationsProvider>
-        </ContactsProvider>
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ConversationsProvider>
       </SocketProvider>
     </GlobalProvider>
   );

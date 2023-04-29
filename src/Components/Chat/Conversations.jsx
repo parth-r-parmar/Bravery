@@ -1,41 +1,10 @@
 import React from "react";
 import {ListGroup} from "react-bootstrap";
-// import {useConversations} from "../contexts/ConversationsProvider";
+import {useConversations} from "../../contexts/ConversationsProvider";
 
 const Conversations = () => {
-  //   const {conversations, selectConversationIndex} = useConversations();
-  const conversations = [
-    {
-      selected: false,
-      recipients: [
-        {
-          name: "Parth",
-        },
-        {
-          name: "Janak",
-        },
-      ],
-    },
-    {
-      selected: true,
-      recipients: [
-        {
-          name: "Yash",
-        },
-      ],
-    },
-    {
-      selected: false,
-      recipients: [
-        {
-          name: "Bhavya",
-        },
-        {
-          name: "Parth",
-        },
-      ],
-    },
-  ];
+  const {conversations, selectedConversationIndex, setSelectedConversationIndex} =
+    useConversations();
 
   return (
     <ListGroup variant='flush'>
@@ -43,10 +12,10 @@ const Conversations = () => {
         <ListGroup.Item
           key={index}
           action
-          //   onClick={() => selectConversationIndex(index)}
-          active={conversation.selected}
+          onClick={() => setSelectedConversationIndex(conversation._id)}
+          active={selectedConversationIndex === conversation._id}
         >
-          {conversation.recipients.map((r) => r.name).join(", ")}
+          {conversation?.members?.map((member) => member.profile.name).join(", ")}
         </ListGroup.Item>
       ))}
     </ListGroup>

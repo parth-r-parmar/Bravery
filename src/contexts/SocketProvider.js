@@ -19,7 +19,7 @@ export function SocketProvider({children}) {
 
   useEffect(() => {
     if (_id) {
-      const newSocket = io("http://localhost:5000/socket", {query: {_id}});
+      const newSocket = io(`${process.env.REACT_APP_API_URL}/socket`, {query: {_id}});
       setSocket(newSocket);
     }
 
