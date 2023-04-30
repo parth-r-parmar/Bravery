@@ -27,7 +27,7 @@ const Conversations = () => {
           </ListGroup.Item>
         ))
       ) : (
-        <div className='text-muted text-center mt-2'>No conversations</div>
+        <div className='text-muted text-center mt-4'>No conversations</div>
       )}
     </ListGroup>
   );
