@@ -1,12 +1,11 @@
 import React from "react";
-import {useContext} from "react";
-import {GlobalContext} from "../../contexts/userContext";
+import {useUser} from "../../contexts/UserProvider";
 import {SiteContainer} from "../../Layout/Layout";
 
 const UserDashBoard = () => {
   const {
     state: {user},
-  } = useContext(GlobalContext);
+  } = useUser();
   return (
     <>
       <SiteContainer

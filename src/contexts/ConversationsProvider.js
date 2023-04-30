@@ -11,7 +11,8 @@ export function useConversations() {
 export function ConversationsProvider({children}) {
   const [contacts, setContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [selectedConversationIndex, setSelectedConversationIndex] = useState("");
+  const [notifications, setNotifications] = useState([]);
+  const [selectedConversationId, setSelectedConversationId] = useState("");
   const socket = useSocket();
 
   const addMessageToConversation = useCallback(
@@ -26,17 +27,19 @@ export function ConversationsProvider({children}) {
   );
 
   useEffect(() => {
+    if (notifications.includes(selectedConversationId))
+      setNotifications((prev) =>
+        prev.filter((notification) => notification !== selectedConversationId),
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedConversationId]);
+
+  useEffect(() => {
     if (socket == null) return;
 
     socket.on("receiveMessage", (res) => {
+      if (res._id !== selectedConversationId) setNotifications((prev) => [...prev, res._id]);
       addMessageToConversation(res);
-    });
-
-    socket.on("receiveContactList", (err, res) => {
-      if (err) {
-        alert(JSON.stringify(err));
-      }
-      setContacts(res);
     });
 
     socket.on("chatCreated", (res) => {
@@ -57,6 +60,7 @@ export function ConversationsProvider({children}) {
     });
 
     return () => socket.off("receiveMessage");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, addMessageToConversation]);
 
   function sendMessage(text) {
@@ -64,7 +68,7 @@ export function ConversationsProvider({children}) {
       "call",
       "sendMessage",
       {
-        to: selectedConversationIndex,
+        to: selectedConversationId,
         message: text,
       },
       (err, res) => {
@@ -98,11 +102,12 @@ export function ConversationsProvider({children}) {
   const value = {
     conversations,
     contacts,
-    selectedConversation: conversations.find((con) => con._id === selectedConversationIndex),
+    selectedConversation: conversations.find((con) => con._id === selectedConversationId),
     sendMessage,
     addToChat,
-    selectedConversationIndex,
-    setSelectedConversationIndex,
+    selectedConversationId,
+    setSelectedConversationId,
+    notifications,
   };
 
   return <ConversationsContext.Provider value={value}>{children}</ConversationsContext.Provider>;

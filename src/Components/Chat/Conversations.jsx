@@ -3,21 +3,32 @@ import {ListGroup} from "react-bootstrap";
 import {useConversations} from "../../contexts/ConversationsProvider";
 
 const Conversations = () => {
-  const {conversations, selectedConversationIndex, setSelectedConversationIndex} =
+  const {conversations, selectedConversationId, setSelectedConversationId, notifications} =
     useConversations();
 
   return (
     <ListGroup variant='flush'>
-      {conversations.map((conversation, index) => (
-        <ListGroup.Item
-          key={index}
-          action
-          onClick={() => setSelectedConversationIndex(conversation._id)}
-          active={selectedConversationIndex === conversation._id}
-        >
-          {conversation?.members?.map((member) => member.profile.name).join(", ")}
-        </ListGroup.Item>
-      ))}
+      {conversations.length ? (
+        conversations.map((conversation, index) => (
+          <ListGroup.Item
+            key={index}
+            action
+            onClick={() => setSelectedConversationId(conversation._id)}
+            active={selectedConversationId === conversation._id}
+          >
+            {conversation?.members?.map((member) => member.profile.name).join(", ")}
+            {notifications.includes(conversation._id) ? (
+              <span>
+                <i className='fa-solid fa-comment-dots ms-2 text-primary'></i>
+              </span>
+            ) : (
+              ""
+            )}
+          </ListGroup.Item>
+        ))
+      ) : (
+        <div className='text-muted text-center mt-2'>No conversations</div>
+      )}
     </ListGroup>
   );
 };

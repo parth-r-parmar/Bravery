@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import io from "socket.io-client";
-import {GlobalContext} from "./userContext";
+import {useUser} from "./UserProvider";
 import PropTypes from "prop-types";
 
 const SocketContext = React.createContext();
@@ -14,7 +14,7 @@ export function SocketProvider({children}) {
     state: {
       user: {_id = ""},
     },
-  } = useContext(GlobalContext);
+  } = useUser();
   const [socket, setSocket] = useState();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Field, Formik} from "formik";
 import * as Yup from "yup";
@@ -6,11 +6,11 @@ import {Form} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {register} from "../../interaction/apiIntegration";
 import {setUserData} from "../../util/util";
-import {GlobalContext} from "../../contexts/userContext";
+import {useUser} from "../../contexts/UserProvider";
 
 const Register = () => {
   let navigate = useNavigate();
-  const {dispatch} = useContext(GlobalContext);
+  const {dispatch} = useUser();
   const [selectedImage, setSelectedImage] = useState("");
 
   const registerSchema = Yup.object().shape({
@@ -72,7 +72,6 @@ const Register = () => {
             formData.append("avatar", values.avatar);
 
             const data = await register(formData);
-            console.log(data);
             if (data.code === 200) {
               dispatch({
                 type: "SET_USER",

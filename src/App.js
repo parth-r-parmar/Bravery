@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {GlobalProvider} from "./contexts/userContext";
+import {UserProvider} from "./contexts/UserProvider";
 import {UserLayout} from "./Layout/UserLayout";
 import {AuthLayout} from "./Layout/AuthLayout";
 import {PageNotFound} from "./pages/PageNotFound";
@@ -10,7 +10,7 @@ import {ConversationsProvider} from "./contexts/ConversationsProvider";
 
 function App() {
   return (
-    <GlobalProvider>
+    <UserProvider>
       <SocketProvider>
         <ConversationsProvider>
           <BrowserRouter>
@@ -28,7 +28,7 @@ function App() {
           </BrowserRouter>
         </ConversationsProvider>
       </SocketProvider>
-    </GlobalProvider>
+    </UserProvider>
   );
 }
 
