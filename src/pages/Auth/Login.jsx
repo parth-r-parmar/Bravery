@@ -1,8 +1,7 @@
 import React from "react";
-import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {GlobalContext} from "../../contexts/userContext";
+import {useUser} from "../../contexts/UserProvider";
 import {login} from "../../interaction/apiIntegration";
 import {setUserData} from "../../util/util";
 import * as Yup from "yup";
@@ -11,7 +10,7 @@ import {Form} from "react-bootstrap";
 
 const Login = () => {
   let navigate = useNavigate();
-  const {dispatch} = useContext(GlobalContext);
+  const {dispatch} = useUser();
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),

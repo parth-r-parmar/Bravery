@@ -1,11 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import {deleteUserData} from "../../util/util";
 import PropTypes from "prop-types";
 import {Button, Modal} from "react-bootstrap";
-import {GlobalContext} from "../../contexts/userContext";
+import {useUser} from "../../contexts/UserProvider";
 import {Link} from "react-router-dom";
 
 const Header = (props) => {
@@ -13,7 +13,7 @@ const Header = (props) => {
   const [showModal, setShowModal] = useState(false);
   const {
     state: {user},
-  } = useContext(GlobalContext);
+  } = useUser();
 
   const getUserData = () => {
     setShowModal(true);

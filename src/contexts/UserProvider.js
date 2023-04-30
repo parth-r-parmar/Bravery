@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React, {useContext, useReducer} from "react";
 import PropTypes from "prop-types";
 
 let initialState = {
@@ -22,15 +22,19 @@ const userReducer = (state, action) => {
 
 export const GlobalContext = React.createContext(initialState);
 
-export const GlobalProvider = ({children}) => {
+export function useUser() {
+  return useContext(GlobalContext);
+}
+
+export const UserProvider = ({children}) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
   return <GlobalContext.Provider value={{state, dispatch}}>{children}</GlobalContext.Provider>;
 };
-GlobalProvider.defaultProps = {
+UserProvider.defaultProps = {
   children: "",
 };
 
-GlobalProvider.propTypes = {
+UserProvider.propTypes = {
   children: PropTypes.element,
 };

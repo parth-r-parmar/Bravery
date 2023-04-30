@@ -1,7 +1,6 @@
 import React from "react";
-import {useContext} from "react";
 import {Navigate} from "react-router-dom";
-import {GlobalContext} from "../contexts/userContext";
+import {useUser} from "../contexts/UserProvider";
 import {getUser} from "../interaction/apiIntegration";
 import {isAuthenticated} from "../util/util";
 import PropTypes from "prop-types";
@@ -12,7 +11,7 @@ const ProtectedRoute = (props) => {
       user: {email},
     },
     dispatch,
-  } = useContext(GlobalContext);
+  } = useUser();
   const auth = isAuthenticated();
 
   if (auth) {
