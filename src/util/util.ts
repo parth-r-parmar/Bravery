@@ -1,5 +1,10 @@
-export const setUserData = (data) => {
-  if (data.token) localStorage.setItem("loginSession", JSON.stringify(data.token));
+interface UserData {
+  token: string;
+}
+
+export const setUserData = (data: UserData) => {
+  if (data.token)
+    localStorage.setItem("loginSession", JSON.stringify(data.token));
 };
 
 export const getUserData = () => {

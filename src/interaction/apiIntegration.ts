@@ -1,16 +1,15 @@
 import axios from "axios";
-import {getUserData, deleteUserData} from "../util/util";
-import {endPoints} from "./apiEndpoint";
+import { getUserData, deleteUserData } from "../util/util";
+import { endPoints } from "./apiEndpoint";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export const loadUserAuthData = () => {
   const loginSession = getUserData();
   if (loginSession) {
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${loginSession}`,
-    };
-    axiosInstance.defaults.headers = headers;
+    axiosInstance["defaults"]["headers"]["Content-Type"] = "application/json";
+    axiosInstance["defaults"]["headers"][
+      "Authorization"
+    ] = `Bearer ${loginSession}`;
   }
 };
 
@@ -31,23 +30,31 @@ axiosInstance.interceptors.response.use(
     //   return Promise.reject(error.response.data.message);
     // }
     return Promise.reject(error.response.data);
-  },
+  }
 );
 
 (function () {
   loadUserAuthData();
 })();
 
-export const login = async (params) => {
-  const {data} = await axiosInstance.post(`${baseUrl}${endPoints.login}`, params);
+export const login = async (params: any) => {
+  //ntc
+  const { data } = await axiosInstance.post(
+    `${baseUrl}${endPoints.login}`,
+    params
+  );
   return data;
 };
-export const register = async (params) => {
-  const {data} = await axiosInstance.post(`${baseUrl}${endPoints.signup}`, params);
+export const register = async (params: any) => {
+  //ntc
+  const { data } = await axiosInstance.post(
+    `${baseUrl}${endPoints.signup}`,
+    params
+  );
   return data[0];
 };
 
 export const getUser = async () => {
-  const {data} = await axiosInstance.get(`${baseUrl}${endPoints.getUser}`);
+  const { data } = await axiosInstance.get(`${baseUrl}${endPoints.getUser}`);
   return data;
 };

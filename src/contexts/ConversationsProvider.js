@@ -1,5 +1,5 @@
-import React, {useContext, useState, useEffect, useCallback} from "react";
-import {useSocket} from "./SocketProvider";
+import React, { useContext, useState, useEffect, useCallback } from "react";
+import { useSocket } from "./SocketProvider";
 import PropTypes from "prop-types";
 
 const ConversationsContext = React.createContext();
@@ -8,7 +8,7 @@ export function useConversations() {
   return useContext(ConversationsContext);
 }
 
-export function ConversationsProvider({children}) {
+export function ConversationsProvider({ children }) {
   const [contacts, setContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [notifications, setNotifications] = useState([]);
@@ -23,13 +23,13 @@ export function ConversationsProvider({children}) {
         return [...prevConversations];
       });
     },
-    [setConversations],
+    [setConversations]
   );
 
   useEffect(() => {
     if (notifications.includes(selectedConversationId))
       setNotifications((prev) =>
-        prev.filter((notification) => notification !== selectedConversationId),
+        prev.filter((notification) => notification !== selectedConversationId)
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConversationId]);
@@ -38,14 +38,18 @@ export function ConversationsProvider({children}) {
     if (socket == null) return;
 
     socket.on("receiveMessage", (res) => {
-      if (res._id !== selectedConversationId) setNotifications((prev) => [...prev, res._id]);
+      if (res._id !== selectedConversationId)
+        setNotifications((prev) => [...prev, res._id]);
       addMessageToConversation(res);
     });
 
     socket.on("chatCreated", (res) => {
       if (res) {
         setContacts((prev) =>
-          prev.filter((contact) => !res.members.findIndex((item) => item._id === contact._id)),
+          prev.filter(
+            (contact) =>
+              !res.members.findIndex((item) => item._id === contact._id)
+          )
         );
         setConversations((prev) => [...prev, res]);
       }
@@ -76,7 +80,7 @@ export function ConversationsProvider({children}) {
           alert(JSON.stringify(err));
         }
         addMessageToConversation(res);
-      },
+      }
     );
   }
 
@@ -92,17 +96,21 @@ export function ConversationsProvider({children}) {
           alert(JSON.stringify(err));
         }
         setContacts((prev) =>
-          prev.filter((contact) => res.members.findIndex((item) => item._id === contact._id)),
+          prev.filter((contact) =>
+            res.members.findIndex((item) => item._id === contact._id)
+          )
         );
         setConversations((prev) => [...prev, res]);
-      },
+      }
     );
   }
 
   const value = {
     conversations,
     contacts,
-    selectedConversation: conversations.find((con) => con._id === selectedConversationId),
+    selectedConversation: conversations.find(
+      (con) => con._id === selectedConversationId
+    ),
     sendMessage,
     addToChat,
     selectedConversationId,
@@ -110,9 +118,16 @@ export function ConversationsProvider({children}) {
     notifications,
   };
 
-  return <ConversationsContext.Provider value={value}>{children}</ConversationsContext.Provider>;
+  return (
+    <ConversationsContext.Provider value={value}>
+      {children}
+    </ConversationsContext.Provider>
+  );
 }
 
 ConversationsProvider.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };

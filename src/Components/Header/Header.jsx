@@ -1,18 +1,15 @@
-import React, {useState} from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import {deleteUserData} from "../../util/util";
+import React, { useState } from "react";
+import { deleteUserData } from "../../util/util";
 import PropTypes from "prop-types";
-import {Button, Modal} from "react-bootstrap";
-import {useUser} from "../../contexts/UserProvider";
-import {Link} from "react-router-dom";
+import { Button, Modal, Container, Nav, Navbar } from "react-bootstrap";
+import { useUser } from "../../contexts/UserProvider";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
-  const {routes} = props;
+  const { routes } = props;
   const [showModal, setShowModal] = useState(false);
   const {
-    state: {user},
+    state: { user },
   } = useUser();
 
   const getUserData = () => {
@@ -30,19 +27,22 @@ const Header = (props) => {
   return (
     <>
       <Navbar
-        bg='secondary'
-        expand='lg'
-        className='text-uppercase fixed-top shadow-lg'
-        id='mainNav'
+        bg="secondary"
+        expand="lg"
+        className="text-uppercase fixed-top shadow-lg"
+        id="mainNav"
       >
         <Container>
-          <Navbar.Brand as={Link} to='/'>
+          <Navbar.Brand as={Link} to="/">
             Bravery
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls='basic-navbar-nav' className='bg-primary text-white' />
-          <Navbar.Collapse id='navbarResponsive'>
-            <Nav className='ms-auto'>
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className="bg-primary text-white"
+          />
+          <Navbar.Collapse id="navbarResponsive">
+            <Nav className="ms-auto">
               {routes
                 ? routes.map((item) => (
                     <Nav.Link
@@ -55,22 +55,30 @@ const Header = (props) => {
                   ))
                 : ""}
               {props.isUser ? (
-                <div className='dropdown'>
+                <div className="dropdown">
                   <span
-                    role='button'
-                    className='profile bg-light dropdown-toggle'
-                    data-bs-toggle='dropdown'
+                    role="button"
+                    className="profile bg-light dropdown-toggle"
+                    data-bs-toggle="dropdown"
                   >
-                    <img src={user?.profile?.avatar} alt='avatar' />
+                    <img src={user?.profile?.avatar} alt="avatar" />
                   </span>
-                  <ul className='dropdown-menu'>
+                  <ul className="dropdown-menu">
                     <li>
-                      <span className='dropdown-item' role='button' onClick={getUserData}>
+                      <span
+                        className="dropdown-item"
+                        role="button"
+                        onClick={getUserData}
+                      >
                         Edit Profile
                       </span>
                     </li>
                     <li>
-                      <span className='dropdown-item' role='button' onClick={logout}>
+                      <span
+                        className="dropdown-item"
+                        role="button"
+                        onClick={logout}
+                      >
                         Logout
                       </span>
                     </li>
@@ -87,20 +95,22 @@ const Header = (props) => {
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        backdrop='static'
-        size='lg'
-        fullscreen='sm-down'
+        backdrop="static"
+        size="lg"
+        fullscreen="sm-down"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Edit Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you&apos;re reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          Woohoo, you&apos;re reading this text in a modal!
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
-          <Button variant='primary' onClick={editProfile}>
+          <Button variant="primary" onClick={editProfile}>
             Save Changes
           </Button>
         </Modal.Footer>
