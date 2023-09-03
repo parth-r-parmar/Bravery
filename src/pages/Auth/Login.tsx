@@ -1,12 +1,11 @@
-import React from "react";
+import * as Yup from "yup";
+import {Field, Formik} from "formik";
+import {Form} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useUser} from "../../contexts/UserProvider";
 import {login} from "../../interaction/apiIntegration";
 import {setUserData} from "../../util/util";
-import * as Yup from "yup";
-import {Field, Formik} from "formik";
-import {Form} from "react-bootstrap";
 
 const Login = () => {
   let navigate = useNavigate();

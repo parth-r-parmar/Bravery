@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../Components/Header/Header";
 import {landingPageRoutes} from "../Routes/MenuLists/landingPageRoutes";
 import {LayoutContainer, SectionWrapper, SiteContainer} from "../Layout/Layout";

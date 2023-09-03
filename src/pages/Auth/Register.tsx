@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import * as Yup from "yup";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Field, Formik} from "formik";
-import * as Yup from "yup";
 import {Form} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {register} from "../../interaction/apiIntegration";
@@ -20,12 +20,12 @@ const Register = () => {
       .test(
         "fileSize",
         "File is too large",
-        (value) => !value || (value && value.size <= 1024 * 1024),
+        (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
         "fileType",
         "Invalid file type. Supported file types: .jpg , .jpeg, .png",
-        (value) =>
+        (value: any) =>
           !value || (value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type)),
       ),
     name: Yup.string().required("Required"),
@@ -39,7 +39,7 @@ const Register = () => {
     password: Yup.string()
       .required("No password provided.")
       .min(8, "Password is too short - should be 8 chars minimum."),
-    confirmPassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
+    confirmPassword: Yup.string().oneOf([Yup.ref("password"), ""], "Passwords must match"),
   });
 
   return (
@@ -102,11 +102,10 @@ const Register = () => {
                     type='file'
                     name='avatar'
                     id='avatar'
-                    file-input='files'
-                    onChange={(event) => {
+                    onChange={(event: any) => {
                       const choosedFile = event.currentTarget.files[0];
                       if (choosedFile) {
-                        const reader = new FileReader();
+                        const reader: any = new FileReader();
                         reader.addEventListener("load", function () {
                           setSelectedImage(reader.result);
                         });

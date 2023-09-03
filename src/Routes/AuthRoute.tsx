@@ -1,9 +1,12 @@
-import React from "react";
+import {memo} from "react";
 import {Navigate} from "react-router-dom";
 import {isAuthenticated} from "../util/util";
-import PropTypes from "prop-types";
 
-const AuthRoute = (props) => {
+interface AuthRouteProps {
+  element: JSX.Element;
+}
+
+const AuthRoute = (props: AuthRouteProps) => {
   const auth = isAuthenticated();
   return auth ? <Navigate to='/user/dashboard' /> : props.element;
 };
@@ -11,8 +14,4 @@ AuthRoute.defaultProps = {
   element: "",
 };
 
-AuthRoute.propTypes = {
-  element: PropTypes.element,
-};
-
-export default React.memo(AuthRoute);
+export default memo(AuthRoute);

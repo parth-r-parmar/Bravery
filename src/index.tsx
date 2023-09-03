@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
 import "react-toastify/dist/ReactToastify.min.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <StrictMode>
     <ToastContainer />

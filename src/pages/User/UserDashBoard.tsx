@@ -1,4 +1,3 @@
-import React from "react";
 import {useUser} from "../../contexts/UserProvider";
 import {SiteContainer} from "../../Layout/Layout";
 

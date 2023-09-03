@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import {FC, ReactNode} from "react";
 
-export const LayoutContainer = (props) => {
+interface layoutProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export const LayoutContainer: FC<layoutProps> = (props) => {
   return (
     <div style={{height: "100vh"}} className={props.className}>
       {props.children}
@@ -9,7 +13,7 @@ export const LayoutContainer = (props) => {
   );
 };
 
-export const SectionWrapper = (props) => {
+export const SectionWrapper: FC<layoutProps> = (props) => {
   return (
     <div style={{padding: "4rem 0"}} className={`h-100 ${props.className || ""}`}>
       {props.children}
@@ -17,12 +21,13 @@ export const SectionWrapper = (props) => {
   );
 };
 
-LayoutContainer.propTypes = SectionWrapper.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
-  className: PropTypes.string,
-};
+interface siteContainerProps {
+  children: ReactNode;
+  heading: string;
+  logo?: any;
+}
 
-export const SiteContainer = (props) => {
+export const SiteContainer: FC<siteContainerProps> = (props) => {
   const {logo, heading = "", children} = props;
   return (
     <div className='site-container'>
@@ -58,13 +63,10 @@ export const SiteContainer = (props) => {
 };
 
 SiteContainer.defaultProps = {
-  logo: {},
+  logo: {
+    url: "",
+    isStatic: false,
+  },
   heading: "",
   children: "",
-};
-
-SiteContainer.propTypes = {
-  logo: PropTypes.object,
-  heading: PropTypes.string,
-  children: PropTypes.element,
 };

@@ -6,11 +6,8 @@ const baseUrl = process.env.REACT_APP_API_URL;
 export const loadUserAuthData = () => {
   const loginSession = getUserData();
   if (loginSession) {
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${loginSession}`,
-    };
-    axiosInstance.defaults.headers = headers;
+    axiosInstance["defaults"]["headers"]["Content-Type"] = "application/json";
+    axiosInstance["defaults"]["headers"]["Authorization"] = `Bearer ${loginSession}`;
   }
 };
 
@@ -38,11 +35,13 @@ axiosInstance.interceptors.response.use(
   loadUserAuthData();
 })();
 
-export const login = async (params) => {
+export const login = async (params: any) => {
+  //ntc
   const {data} = await axiosInstance.post(`${baseUrl}${endPoints.login}`, params);
   return data;
 };
-export const register = async (params) => {
+export const register = async (params: any) => {
+  //ntc
   const {data} = await axiosInstance.post(`${baseUrl}${endPoints.signup}`, params);
   return data[0];
 };

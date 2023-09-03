@@ -1,14 +1,22 @@
-import React, {useState} from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import {deleteUserData} from "../../util/util";
-import PropTypes from "prop-types";
-import {Button, Modal} from "react-bootstrap";
-import {useUser} from "../../contexts/UserProvider";
+import {FC, memo, useState} from "react";
 import {Link} from "react-router-dom";
+import {Button, Modal, Container, Nav, Navbar} from "react-bootstrap";
+import {deleteUserData} from "../../util/util";
+import {useUser} from "../../contexts/UserProvider";
 
-const Header = (props) => {
+interface route {
+  id: number;
+  route: string;
+  text: string;
+  isInSamePage: boolean;
+}
+
+interface headerProps {
+  routes: route[];
+  isUser?: boolean;
+}
+
+const Header: FC<headerProps> = (props) => {
   const {routes} = props;
   const [showModal, setShowModal] = useState(false);
   const {
@@ -113,9 +121,4 @@ Header.defaultProps = {
   routes: [],
 };
 
-Header.propTypes = {
-  routes: PropTypes.array,
-  isUser: PropTypes.bool,
-};
-
-export default React.memo(Header);
+export default memo(Header);
