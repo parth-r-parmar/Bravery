@@ -18,12 +18,6 @@ export const userDashBoardRoutes = [
     isInSamePage: false,
   },
   {
-    id: 4,
-    route: "user/chat",
-    text: "Chat",
-    isInSamePage: false,
-  },
-  {
     id: 5,
     route: "feedback",
     text: "Feedback",
