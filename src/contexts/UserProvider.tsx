@@ -1,6 +1,7 @@
-import React, { useContext, useReducer, ReactNode } from "react";
+import {useContext, useReducer, ReactNode, Dispatch, createContext, FC} from "react";
 
 interface User {
+  _id: string;
   registeredComplaints: any;
   profile: any;
   email: string | undefined;
@@ -17,11 +18,12 @@ interface Action {
 
 interface ContextType {
   state: State;
-  dispatch: React.Dispatch<Action>; // You should replace 'any' with your actual action types
+  dispatch: Dispatch<Action>; // You should replace 'any' with your actual action types
 }
 
 let initialState: State = {
   user: {
+    _id: "",
     registeredComplaints: {},
     profile: {},
     email: undefined,
@@ -39,7 +41,7 @@ const userReducer = (state: State, action: Action) => {
   }
 };
 
-const GlobalContext = React.createContext<ContextType | undefined>(undefined);
+const GlobalContext = createContext<ContextType | undefined>(undefined);
 
 export function useUser(): ContextType {
   const context = useContext(GlobalContext);
@@ -49,9 +51,7 @@ export function useUser(): ContextType {
   return context;
 }
 
-export const UserProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const UserProvider: FC<{children: ReactNode}> = ({children}) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
   return (

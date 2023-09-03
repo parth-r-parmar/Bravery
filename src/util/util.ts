@@ -3,8 +3,7 @@ interface UserData {
 }
 
 export const setUserData = (data: UserData) => {
-  if (data.token)
-    localStorage.setItem("loginSession", JSON.stringify(data.token));
+  if (data.token) localStorage.setItem("loginSession", JSON.stringify(data.token));
 };
 
 export const getUserData = () => {

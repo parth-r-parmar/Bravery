@@ -1,16 +1,17 @@
-import { Navigate } from "react-router-dom";
-import { useUser } from "../contexts/UserProvider";
-import { getUser } from "../interaction/apiIntegration";
-import { isAuthenticated } from "../util/util";
+import {FC} from "react";
+import {Navigate} from "react-router-dom";
+import {useUser} from "../contexts/UserProvider";
+import {getUser} from "../interaction/apiIntegration";
+import {isAuthenticated} from "../util/util";
 
 interface ProtectedRouteProps {
   element: JSX.Element;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = (props:any) => {
+const ProtectedRoute: FC<ProtectedRouteProps> = (props: any) => {
   const {
     state: {
-      user: { email },
+      user: {email},
     },
     dispatch,
   } = useUser();
@@ -26,7 +27,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = (props:any) => {
         return props.element;
       });
     } else return props.element;
-  } else return <Navigate to="/auth/login" />;
+  } else return <Navigate to='/auth/login' />;
 };
 
 export default ProtectedRoute;

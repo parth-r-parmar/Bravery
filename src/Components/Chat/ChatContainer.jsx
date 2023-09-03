@@ -1,16 +1,16 @@
-import React, { useCallback, useRef } from "react";
-import { Form, InputGroup, Button } from "react-bootstrap";
-import { useConversations } from "../../contexts/ConversationsProvider";
-import { useUser } from "../../contexts/UserProvider";
+import {useCallback, useRef} from "react";
+import {Form, InputGroup, Button} from "react-bootstrap";
+import {useConversations} from "../../contexts/ConversationsProvider";
+import {useUser} from "../../contexts/UserProvider";
 
 export const ChatContainer = () => {
   const {
-    state: { user },
+    state: {user},
   } = useUser();
   const setRef = useCallback((node) => {
-    if (node) node.scrollIntoView({ smooth: true });
+    if (node) node.scrollIntoView({smooth: true});
   }, []);
-  const { sendMessage, selectedConversation } = useConversations();
+  const {sendMessage, selectedConversation} = useConversations();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,14 +22,13 @@ export const ChatContainer = () => {
   const inputRef = useRef();
 
   return (
-    <div className="d-flex flex-column flex-grow-1">
+    <div className='d-flex flex-column flex-grow-1'>
       {selectedConversation ? (
         <>
-          <div className="flex-grow-1 overflow-auto">
-            <div className="d-flex flex-column align-items-start justify-content-end px-3">
+          <div className='flex-grow-1 overflow-auto'>
+            <div className='d-flex flex-column align-items-start justify-content-end px-3'>
               {selectedConversation?.messages?.map((message, index) => {
-                const lastMessage =
-                  selectedConversation.messages.length - 1 === index;
+                const lastMessage = selectedConversation.messages.length - 1 === index;
                 return (
                   <div
                     ref={lastMessage ? setRef : null}
@@ -44,9 +43,7 @@ export const ChatContainer = () => {
                   >
                     <div
                       className={`rounded px-2 py-1 ${
-                        message.sender === user._id
-                          ? "bg-primary text-white"
-                          : "border"
+                        message.sender === user._id ? "bg-primary text-white" : "border"
                       }`}
                     >
                       {message.message}
@@ -58,9 +55,8 @@ export const ChatContainer = () => {
                     >
                       {message.sender === user._id
                         ? "You"
-                        : selectedConversation?.members?.find(
-                            (mem) => mem._id === message.sender
-                          )?.profile.name}
+                        : selectedConversation?.members?.find((mem) => mem._id === message.sender)
+                            ?.profile.name}
                     </div>
                   </div>
                 );
@@ -68,21 +64,16 @@ export const ChatContainer = () => {
             </div>
           </div>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="m-2">
+            <Form.Group className='m-2'>
               <InputGroup>
-                <Form.Control
-                  ref={inputRef}
-                  required
-                  placeholder="type message..."
-                  autoFocus
-                />
-                <Button type="submit">Send</Button>
+                <Form.Control ref={inputRef} required placeholder='type message...' autoFocus />
+                <Button type='submit'>Send</Button>
               </InputGroup>
             </Form.Group>
           </Form>{" "}
         </>
       ) : (
-        <div className="d-flex align-items-center justify-content-center flex-grow-1">
+        <div className='d-flex align-items-center justify-content-center flex-grow-1'>
           Select chat
         </div>
       )}

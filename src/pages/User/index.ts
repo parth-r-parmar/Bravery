@@ -1,5 +1,5 @@
-import { RegisterComplaint } from "./RegisterComplaint";
-import { ViewComplaint } from "./ViewComplaint";
-import { Chat } from "./Chat";
+import {RegisterComplaint} from "./RegisterComplaint";
+import {ViewComplaint} from "./ViewComplaint";
+import {Chat} from "./Chat";
 
-export { RegisterComplaint, ViewComplaint, Chat };
+export {RegisterComplaint, ViewComplaint, Chat};
