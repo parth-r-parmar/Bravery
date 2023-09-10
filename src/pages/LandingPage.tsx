@@ -16,8 +16,8 @@ const LandingPage = () => {
           id='home'
         >
           <div>
-            <p className='masthead-subheading font-weight-light mb-0'>BE AWARE</p>
-            <p className='masthead-subheading font-weight-light mb-0'>BE SAFE</p>
+            <p className='masthead-subheading mb-0'>BE AWARE</p>
+            <p className='masthead-subheading mb-0'>BE SAFE</p>
           </div>
         </SiteContainer>
 
