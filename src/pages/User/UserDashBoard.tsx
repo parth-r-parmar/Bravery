@@ -13,6 +13,7 @@ const UserDashBoard = () => {
           isStatic: false,
         }}
         heading={user?.profile?.name}
+        id='home'
       >
         <div>
           <p className='masthead-subheading font-weight-light mb-0'>{user?.email}</p>
