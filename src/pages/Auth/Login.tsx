@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import {Field, Formik} from "formik";
-import {Form} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useUser} from "../../contexts/UserProvider";
@@ -51,7 +50,7 @@ const Login = () => {
           }}
         >
           {({errors, touched, handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <label className='block mt-2'>
                 <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                   Email
@@ -89,7 +88,7 @@ const Login = () => {
               >
                 Login
               </button>
-            </Form>
+            </form>
           )}
         </Formik>
       </div>

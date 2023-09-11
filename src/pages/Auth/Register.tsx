@@ -2,7 +2,6 @@ import * as Yup from "yup";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Field, Formik} from "formik";
-import {Form} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {register} from "../../interaction/apiIntegration";
 import {setUserData} from "../../util/util";
@@ -89,7 +88,7 @@ const Register = () => {
           }}
         >
           {({errors, touched, handleSubmit, isSubmitting, setFieldValue}) => (
-            <Form
+            <form
               onSubmit={handleSubmit}
               className='sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2'
             >
@@ -238,7 +237,7 @@ const Register = () => {
               >
                 Register
               </button>
-            </Form>
+            </form>
           )}
         </Formik>
       </div>
