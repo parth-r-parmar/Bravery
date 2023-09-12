@@ -42,9 +42,7 @@ export const SiteContainer: FC<siteContainerProps> = (props) => {
             />
           )}
 
-          {heading && (
-            <div className='masthead-heading text-uppercase mb-0 text-2xl'>{heading}</div>
-          )}
+          {heading && <div className='masthead-heading uppercase mb-0 text-2xl'>{heading}</div>}
 
           <div className='divider-custom'>
             <div className='divider-custom-line'></div>
