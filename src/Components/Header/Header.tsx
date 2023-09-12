@@ -64,7 +64,7 @@ const Header: FC<headerProps> = (props) => {
           </button>
 
           {props.isUser ? (
-            <div className='flex items-center md:order-2'>
+            <div className='flex items-center md:order-2 relative'>
               <button
                 type='button'
                 className='flex ms-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600'
@@ -76,7 +76,7 @@ const Header: FC<headerProps> = (props) => {
               </button>
               {/* Dropdown menu */}
               <div
-                className={`absolute top-10 right-5 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                className={`absolute top-6 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
                   showUserMenu ? "block" : "hidden"
                 }`}
               >
