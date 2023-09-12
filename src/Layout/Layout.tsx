@@ -6,16 +6,12 @@ interface layoutProps {
 }
 
 export const LayoutContainer: FC<layoutProps> = (props) => {
-  return (
-    <div style={{height: "100vh"}} className={props.className}>
-      {props.children}
-    </div>
-  );
+  return <div className={`h-screen ${props.className}`}>{props.children}</div>;
 };
 
 export const SectionWrapper: FC<layoutProps> = (props) => {
   return (
-    <div style={{padding: "4rem 0"}} className={`h-100 ${props.className || ""}`}>
+    <div style={{padding: "4rem 0"}} className={`h-full ${props.className || ""}`}>
       {props.children}
     </div>
   );
@@ -24,15 +20,16 @@ export const SectionWrapper: FC<layoutProps> = (props) => {
 interface siteContainerProps {
   children: ReactNode;
   heading: string;
+  id: string;
   logo?: any;
 }
 
 export const SiteContainer: FC<siteContainerProps> = (props) => {
-  const {logo, heading = "", children} = props;
+  const {logo, heading = "", children, id} = props;
   return (
-    <div className='site-container'>
+    <div className='site-container' id={id}>
       <div className='masthead bg-white rounded shadow-lg text-center'>
-        <div className='container d-flex align-items-center flex-column'>
+        <div className='container flex items-center flex-col'>
           {logo && logo.url && (
             <img
               className='masthead-avatar mb-5'
@@ -45,7 +42,7 @@ export const SiteContainer: FC<siteContainerProps> = (props) => {
             />
           )}
 
-          {heading && <h1 className='masthead-heading text-uppercase mb-0'>{heading}</h1>}
+          {heading && <div className='masthead-heading uppercase mb-0 text-2xl'>{heading}</div>}
 
           <div className='divider-custom'>
             <div className='divider-custom-line'></div>

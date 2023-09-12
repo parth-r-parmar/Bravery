@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import {Field, Formik} from "formik";
-import {Form} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useUser} from "../../contexts/UserProvider";
@@ -22,7 +21,7 @@ const Login = () => {
     <div className='loginSection'>
       <div className='loginContainer p-5 bg-white shadow-lg rounded'>
         <div className='mb-5'>
-          <h1>Login</h1>
+          <div className='text-2xl'>Login</div>
         </div>
         <Formik
           initialValues={{
@@ -51,27 +50,45 @@ const Login = () => {
           }}
         >
           {({errors, touched, handleSubmit, isSubmitting}) => (
-            <Form onSubmit={handleSubmit}>
-              <div className='form-group'>
-                <label htmlFor='email'>Email</label>
-                <Field name='email' id='email' type='email' className='form-control' />
+            <form onSubmit={handleSubmit}>
+              <label className='block mt-2'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Email
+                </span>
+                <Field
+                  id='email'
+                  type='email'
+                  name='email'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                />
                 {errors.email && touched.email ? (
-                  <div className='text-danger'>{errors.email}</div>
+                  <div className='text-red-500'>{errors.email}</div>
                 ) : null}
-              </div>
+              </label>
 
-              <div className='form-group'>
-                <label htmlFor='password'>Password</label>
-                <Field name='password' id='password' type='password' className='form-control' />
+              <label className='block mt-2'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Password
+                </span>
+                <Field
+                  name='password'
+                  id='password'
+                  type='password'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                />
                 {errors.password && touched.password ? (
-                  <div className='text-danger'>{errors.password}</div>
+                  <div className='text-red-500'>{errors.password}</div>
                 ) : null}
-              </div>
+              </label>
 
-              <button type='submit' className='btn btn-primary' disabled={isSubmitting}>
+              <button
+                type='submit'
+                className='mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                disabled={isSubmitting}
+              >
                 Login
               </button>
-            </Form>
+            </form>
           )}
         </Formik>
       </div>

@@ -2,7 +2,6 @@ import * as Yup from "yup";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Field, Formik} from "formik";
-import {Form} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {register} from "../../interaction/apiIntegration";
 import {setUserData} from "../../util/util";
@@ -46,7 +45,7 @@ const Register = () => {
     <div className='loginSection'>
       <div className='loginContainer p-5 bg-white shadow-lg rounded'>
         <div className='mb-5'>
-          <h1>Register</h1>
+          <div className='text-2xl'>Register</div>
         </div>
         <Formik
           initialValues={{
@@ -89,8 +88,11 @@ const Register = () => {
           }}
         >
           {({errors, touched, handleSubmit, isSubmitting, setFieldValue}) => (
-            <Form onSubmit={handleSubmit} className='row'>
-              <div className='control-group d-flex justify-content-center col-lg-6 col-md-6 col-sm-12'>
+            <form
+              onSubmit={handleSubmit}
+              className='sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2'
+            >
+              <div className='control-group flex justify-center'>
                 <div className='profile-pic-div'>
                   <img
                     src={`${selectedImage || require("../../Assets/imgs/User.jpg")}`}
@@ -117,20 +119,26 @@ const Register = () => {
                   <label htmlFor='avatar'>Choose Photo</label>
                 </div>
                 {errors.avatar && touched.avatar ? (
-                  <div className='text-danger'>{errors.avatar}</div>
+                  <div className='text-red-500'>{errors.avatar}</div>
                 ) : null}
               </div>
 
-              <div className='col-lg-6 col-md-6 col-sm-12'>
-                <div className='form-group mt-2'>
-                  <label htmlFor='name'>Name</label>
-                  <Field name='name' id='name' className='form-control' />
+              <div>
+                <label className='block'>
+                  <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                    Name
+                  </span>
+                  <Field
+                    name='name'
+                    id='name'
+                    className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                  />
                   {errors.name && touched.name ? (
-                    <div className='text-danger'>{errors.name}</div>
+                    <div className='text-red-500'>{errors.name}</div>
                   ) : null}
-                </div>
+                </label>
 
-                <div role='group' aria-labelledby='Gender' className=' mt-2'>
+                <div role='group' aria-labelledby='Gender'>
                   <div id='gender' className='form-group'>
                     Gender
                   </div>
@@ -143,59 +151,93 @@ const Register = () => {
                     Female
                   </label>
                   {errors.gender && touched.gender ? (
-                    <div className='text-danger'>{errors.gender}</div>
+                    <div className='text-red-500'>{errors.gender}</div>
                   ) : null}
                 </div>
 
-                <div className='form-group mt-2'>
-                  <label htmlFor='dateOfBirth'>Date Of Birth</label>
-                  <Field name='dateOfBirth' id='dateOfBirth' type='date' className='form-control' />
+                <label className='block'>
+                  <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                    Date Of Birth
+                  </span>
+                  <Field
+                    name='dateOfBirth'
+                    id='dateOfBirth'
+                    type='date'
+                    className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                  />
                   {errors.dateOfBirth && touched.dateOfBirth ? (
-                    <div className='text-danger'>{errors.dateOfBirth}</div>
+                    <div className='text-red-500'>{errors.dateOfBirth}</div>
                   ) : null}
-                </div>
+                </label>
               </div>
 
-              <div className='form-group mt-2 col-lg-6 col-md-6 col-sm-12'>
-                <label htmlFor='phoneNumber'>Phone Number</label>
-                <Field name='phoneNumber' id='phoneNumber' className='form-control' />
+              <label className='block'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Phone Number
+                </span>
+                <Field
+                  name='phoneNumber'
+                  id='phoneNumber'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                />
                 {errors.phoneNumber && touched.phoneNumber ? (
-                  <div className='text-danger'>{errors.phoneNumber}</div>
+                  <div className='text-red-500'>{errors.phoneNumber}</div>
                 ) : null}
-              </div>
+              </label>
 
-              <div className='form-group mt-2 col-lg-6 col-md-6 col-sm-12'>
-                <label htmlFor='email'>Email</label>
-                <Field name='email' id='email' type='email' className='form-control' />
+              <label className='block'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Email
+                </span>
+                <Field
+                  name='email'
+                  id='email'
+                  type='email'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                />
                 {errors.email && touched.email ? (
-                  <div className='text-danger'>{errors.email}</div>
+                  <div className='text-red-500'>{errors.email}</div>
                 ) : null}
-              </div>
+              </label>
 
-              <div className='form-group mt-2 col-lg-6 col-md-6 col-sm-12'>
-                <label htmlFor='password'>Password</label>
-                <Field name='password' id='password' type='password' className='form-control' />
+              <label className='block'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Password
+                </span>
+                <Field
+                  name='password'
+                  id='password'
+                  type='password'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
+                />
                 {errors.password && touched.password ? (
-                  <div className='text-danger'>{errors.password}</div>
+                  <div className='text-red-500'>{errors.password}</div>
                 ) : null}
-              </div>
+              </label>
 
-              <div className='form-group mt-2 col-lg-6 col-md-6 col-sm-12'>
-                <label htmlFor='confirmPassword'>Confirm Password</label>
+              <label className='block'>
+                <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                  Confirm Password
+                </span>
                 <Field
                   name='confirmPassword'
                   id='confirmPassword'
                   type='password'
-                  className='form-control'
+                  className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1'
                 />
                 {errors.confirmPassword && touched.confirmPassword ? (
-                  <div className='text-danger'>{errors.confirmPassword}</div>
+                  <div className='text-red-500'>{errors.confirmPassword}</div>
                 ) : null}
-              </div>
-              <button type='submit' className='btn btn-primary mt-2' disabled={isSubmitting}>
+              </label>
+
+              <button
+                type='submit'
+                className='mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 col-span-2'
+                disabled={isSubmitting}
+              >
                 Register
               </button>
-            </Form>
+            </form>
           )}
         </Formik>
       </div>

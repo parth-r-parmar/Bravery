@@ -18,7 +18,7 @@ interface Action {
 
 interface ContextType {
   state: State;
-  dispatch: Dispatch<Action>; // You should replace 'any' with your actual action types
+  dispatch: Dispatch<Action>;
 }
 
 let initialState: State = {
